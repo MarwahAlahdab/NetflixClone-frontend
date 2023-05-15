@@ -10,10 +10,10 @@ function ModalMovie(props) {
 
   const handleAddToFavorite = () => {
     const serverURL = 'http://localhost:3002/movie/addMovie';
-    const releaseDate = Date.parse(props.movie.release_date);
+
     const movieData = {
       title: props.movie.title,
-      release_date: releaseDate,
+      release_date: props.movie.release_date,
       overview: props.movie.overview,
     };
 

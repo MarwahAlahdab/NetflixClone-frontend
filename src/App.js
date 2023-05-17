@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './components/Header';
 import {Routes , Route} from 'react-router-dom';
 import Home from './components/Home';
-// import FavList from './components/FavList';
+import FavList from './components/FavList';
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
     <Header />
     <Routes>
       <Route path='/' element={<Home/>}></Route>
-      {/* <Route path='/favlist' element={<FavList/>}> </Route> */}
+      <Route path='/favlist' element={<FavList/>}> </Route>
     </Routes>
     </>
   );

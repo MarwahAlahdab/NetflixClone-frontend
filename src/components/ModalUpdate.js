@@ -8,7 +8,7 @@ function ModalUpdate(props) {
   const [updatedComment, setUpdatedComment] = useState('');
 
   const handleUpdate = () => {
-    const serverURL = `http://localhost:3002/UPDATE/${props.movie.id}`;
+    const serverURL = `${process.env.REACT_APP_serverURL}/UPDATE/${props.movie.id}`;
     //updateComment/:id
     const updatedMovieData = {
       comment: updatedComment

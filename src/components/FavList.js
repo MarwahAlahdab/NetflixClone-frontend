@@ -11,7 +11,7 @@ function FavList() {
 
   useEffect(() => {
     // Fetch the favorite movies data from the server
-    const serverURL = 'http://localhost:3002/getMovies';
+    const serverURL = `${process.env.REACT_APP_serverURL}/getMovies`;
     axios
       .get(serverURL)
       .then((response) => {
@@ -23,7 +23,7 @@ function FavList() {
   }, []);
 
   const handleDelete = (id) => {
-    const serverURL = `http://localhost:3002/DELETE/${id}`;
+    const serverURL = `${process.env.REACT_APP_serverURL}/DELETE/${id}`;
 
     axios
       .delete(serverURL)

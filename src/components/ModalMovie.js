@@ -9,7 +9,7 @@ function ModalMovie(props) {
   const [comment, setComment] = useState('');
 
   const handleAddToFavorite = () => {
-    const serverURL = 'http://localhost:3002/movie/addMovie';
+    const serverURL = `${process.env.REACT_APP_serverURL}/movie/addMovie`;
 
     const movieData = {
       title: props.movie.title,

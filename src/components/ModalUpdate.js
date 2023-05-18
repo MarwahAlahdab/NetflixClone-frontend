@@ -1,36 +1,35 @@
-
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 
-function ModalMovie(props) {
-  const [comment, setComment] = useState('');
+function ModalUpdate(props) {
+  const [updatedComment, setUpdatedComment] = useState('');
 
-  const handleAddToFavorite = () => {
-    const serverURL = `${process.env.REACT_APP_serverURL}/movie/addMovie`;
-
-    const movieData = {
-      title: props.movie.title,
-      release_date: props.movie.release_date,
-      overview: props.movie.overview,
-      comment: comment
+  const handleUpdate = () => {
+    const serverURL = `${process.env.REACT_APP_serverURL}/UPDATE/${props.movie.id}`;
+    //updateComment/:id
+    const updatedMovieData = {
+      comment: updatedComment
     };
 
     axios
-      .post(serverURL, movieData)
+      .put(serverURL, updatedMovieData)
       .then((response) => {
-        console.log(response.data);
-       
+        // Update the comment in the state
+        const updatedMovie = { ...props.movie, comment: updatedComment };
+        props.setMovies((movies) => {
+          const updatedMovies = movies.map((movie) =>
+            movie.id === updatedMovie.id ? updatedMovie : movie
+          );
+          return updatedMovies;
+        });
+        props.setShowModal(false);
       })
       .catch((error) => {
         console.log(error);
-       
       });
-
-    
-    props.setShowModal(false);
   };
 
   const handleCloseModal = () => {
@@ -38,9 +37,8 @@ function ModalMovie(props) {
   };
 
   const handleCommentChange = (event) => {
-    setComment(event.target.value);
+    setUpdatedComment(event.target.value);
   };
-  const poster_pathURL = "http://image.tmdb.org/t/p/w500/"
 
   return (
     <Modal show={props.showModal} onHide={handleCloseModal}>
@@ -48,14 +46,13 @@ function ModalMovie(props) {
         <Modal.Title>{props.movie.title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <img src={poster_pathURL+props.movie.poster_path} alt={props.movie.title} width='100%' />
         <p>{props.movie.overview}</p>
-        <Form.Group controlId="comment">
-          <Form.Label>Comment</Form.Label>
+        <Form.Group controlId="updatedComment">
+          <Form.Label>Updated Comment</Form.Label>
           <Form.Control
             as="textarea"
             rows={3}
-            value={comment}
+            value={updatedComment}
             onChange={handleCommentChange}
           />
         </Form.Group>
@@ -64,12 +61,12 @@ function ModalMovie(props) {
         <Button variant="secondary" onClick={handleCloseModal}>
           Close
         </Button>
-        <Button variant="dark" onClick={handleAddToFavorite}>
-          Add to Favorites
+        <Button variant="primary" onClick={handleUpdate}>
+          Update
         </Button>
       </Modal.Footer>
     </Modal>
   );
 }
 
-export default ModalMovie;
+export default ModalUpdate;

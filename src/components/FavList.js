@@ -8,10 +8,10 @@ function FavList() {
   const [movies, setMovies] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
-
   useEffect(() => {
     // Fetch the favorite movies data from the server
     const serverURL = `${process.env.REACT_APP_serverURL}/getMovies`;
+
     axios
       .get(serverURL)
       .then((response) => {
@@ -21,7 +21,7 @@ function FavList() {
         console.log(error);
       });
   }, []);
-
+console.log(movies)
   const handleDelete = (id) => {
     const serverURL = `${process.env.REACT_APP_serverURL}/DELETE/${id}`;
 

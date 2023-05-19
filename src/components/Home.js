@@ -7,7 +7,7 @@ function Home() {
 
     const getAllMovies = () => {
         const serverURL = `${process.env.REACT_APP_serverURL}/trending`;
-
+      
 
         fetch(serverURL)
             .then(response => {
@@ -36,7 +36,7 @@ function Home() {
 
       {// render MovieList componant and pass props
        }
-      <MovieList movies={moviesData}/>  
+      <MovieList moviesData={moviesData}/>  
         </>
     )
 }
